@@ -72,3 +72,11 @@ PHP code MUST use only UTF-8 without BOM.
 
 A file **SHOULD** declare new symbols (classes, functions, constants, etc.) and cause no other side effects, or it **SHOULD** execute logic with side effects, but **SHOULD NOT** do both.
 "Side effects" include but are not limited to: generating output, explicit use of ```require``` or ```include```, connecting to external services, modifying ini settings, emitting errors or exceptions, modifying global or static variables, reading from or writing to a file, and so on.
+
+## 3. Namespace and Class Names
+
+Namespaces and classes **MUST** follow an [PSR-4](https://www.php-fig.org/psr/psr-4/) autoloading standard.
+
+This means each class is in a file by itself, and is in a namespace of at least one level: a top-level vendor name.
+
+Class names MUST be declared in ```PascalCase```.
