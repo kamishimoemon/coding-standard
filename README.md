@@ -80,3 +80,33 @@ Namespaces and classes **MUST** follow an [PSR-4](https://www.php-fig.org/psr/ps
 This means each class is in a file by itself, and is in a namespace of at least one level: a top-level vendor name.
 
 Class names MUST be declared in ```PascalCase```.
+
+## 4. Class Constants, Properties, and Methods
+
+The term "class" refers to all classes, interfaces, and traits.
+
+### 4.1 Constants
+
+Class constants **MUST** be declared in all upper case with underscore separators.
+For example:
+
+```
+<?php
+namespace Vendor\Model;
+
+class Foo
+{
+    const VERSION = '1.0';
+    const DATE_APPROVED = '2012-06-01';
+}
+```
+
+### 4.2 Properties
+
+This guide intentionally avoids any recommendation regarding the use of ```$StudlyCaps```, ```$camelCase```, or ```$under_score``` property names.
+
+Whatever naming convention is used **SHOULD** be applied consistently within a reasonable scope. That scope may be vendor-level, package-level, class-level, or method-level.
+
+### 4.3 Methods
+
+Method names MUST be declared in ```camelCase()```.
