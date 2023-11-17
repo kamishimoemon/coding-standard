@@ -52,6 +52,8 @@ enum Beep: int
 
 - Files **MUST** use only ```<?php``` and ```<?=``` tags.
 - Files **MUST** use only UTF-8 without BOM for PHP code.
+- All PHP files **MUST** use the Unix LF (linefeed) line ending only.
+- All PHP files **MUST** end with a non-blank line, terminated with a single LF.
 - Files **SHOULD** either declare symbols (classes, functions, constants, etc.) or cause side-effects (e.g. generate output, change .ini settings, etc.) but **SHOULD NOT** do both.
 - Namespaces and classes **MUST** follow the [PSR-4](https://www.php-fig.org/psr/psr-4/) autoloading standard.
 - Class names **MUST** be declared in ```PascalCase```.
@@ -60,15 +62,67 @@ enum Beep: int
 
 ## 2. Files
 
-### 2.1 PHP Tags
+### 2.1 Lines
+
+There **MUST NOT** be trailing whitespace at the end of lines.
+Blank lines **MAY** be added to improve readability and to indicate related blocks of code except where explicitly forbidden.
+There **MUST NOT** be more than one statement per line.
+
+### 2.2 Indentation
+
+Code **MUST** use a tab for each indent level, and **MUST NOT** use spaces for indenting.
+
+### 2.3 Keywords and Types
+
+All PHP reserved [keywords](http://php.net/manual/en/reserved.keywords.php) and [types](http://php.net/manual/en/reserved.other-reserved-words.php) **MUST** be in lower case.
+Any new types and keywords added to future PHP versions **MUST** be in lower case.
+Short form of type keywords **MUST** be used i.e. ```bool``` instead of ```boolean```, ```int``` instead of ```integer``` etc.
+
+### 2.4 Trailing commas
+
+Numerous PHP constructs allow a sequence of values to be separated by a comma, and the final item may have an optional comma. Examples include array key/value pairs, function arguments, closure ```use``` statements, ```match()``` statement branches, etc.
+If that list is contained on a single line, then the last item **MUST NOT** have a trailing comma.
+If the list is split across multiple lines, then the last item **MUST** have a trailing comma.
+The following are examples of correct comma placement:
+```
+function beep(string $a, string $b, string $c)
+{
+    // ...
+}
+
+function beep(
+    string $a,
+    string $b,
+    string $c,
+) {
+    // ...
+}
+
+$arr = ['a' => 'A', 'b' => 'B', 'c' => 'C'];
+
+$arr = [
+    'a' => 'A',
+    'b' => 'B',
+    'c' => 'C',
+];
+
+$result = match ($a) {
+    'foo' => 'Foo',
+    'bar' => 'Bar',
+    default => 'Baz',
+};
+```
+
+### 2.5 PHP Tags
 
 PHP code **MUST** use the long ```<?php ?>``` tags or the short-echo ```<?= ?>``` tags; it **MUST NOT** use the other tag variations.
+The closing ```?>``` tag **MUST** be omitted from files containing only PHP.
 
-### 2.2 Character Encoding
+### 2.6 Character Encoding
 
 PHP code MUST use only UTF-8 without BOM.
 
-### 2.3 Side Effects
+### 2.7 Side Effects
 
 A file **SHOULD** declare new symbols (classes, functions, constants, etc.) and cause no other side effects, or it **SHOULD** execute logic with side effects, but **SHOULD NOT** do both.
 "Side effects" include but are not limited to: generating output, explicit use of ```require``` or ```include```, connecting to external services, modifying ini settings, emitting errors or exceptions, modifying global or static variables, reading from or writing to a file, and so on.
@@ -103,7 +157,7 @@ class Foo
 
 ### 4.2 Properties
 
-This guide intentionally avoids any recommendation regarding the use of ```$StudlyCaps```, ```$camelCase```, or ```$under_score``` property names.
+This guide intentionally avoids any recommendation regarding the use of ```$PascalCase```, ```$camelCase```, or ```$under_score``` property names.
 
 Whatever naming convention is used **SHOULD** be applied consistently within a reasonable scope. That scope may be vendor-level, package-level, class-level, or method-level.
 
