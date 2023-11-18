@@ -127,6 +127,29 @@ PHP code MUST use only UTF-8 without BOM.
 A file **SHOULD** declare new symbols (classes, functions, constants, etc.) and cause no other side effects, or it **SHOULD** execute logic with side effects, but **SHOULD NOT** do both.
 "Side effects" include but are not limited to: generating output, explicit use of ```require``` or ```include```, connecting to external services, modifying ini settings, emitting errors or exceptions, modifying global or static variables, reading from or writing to a file, and so on.
 
+## 3. Declare Statements, Namespace, and Import Statements
+
+The header of a PHP file **MAY** consist of a number of different blocks. If present, each of the blocks below **MUST** be separated by a single blank line, and **MUST NOT** contain a blank line. Each block **MUST** be in the order listed below, although blocks that are not relevant may be omitted.
+
+- Opening ```<?php``` tag.
+- File-level docblock.
+- One or more declare statements.
+- The namespace declaration of the file.
+- One or more class-based ```use``` import statements.
+- One or more function-based ```use``` import statements.
+- One or more constant-based ```use``` import statements.
+- The remainder of the code in the file.
+
+When a file contains a mix of HTML and PHP, any of the above sections may still be used. If so, they **MUST** be present at the top of the file, even if the remainder of the code consists of a closing PHP tag and then a mixture of HTML and PHP.
+
+When the opening ```<?php``` tag is on the first line of the file, it **MUST** be on its own line with no other statements unless it is a file containing markup outside of PHP opening and closing tags.
+
+Import statements **MUST** be fully qualified.
+
+Declare statements **MUST** be exactly ```declare(strict_types=1);```.
+
+---
+
 ## 3. Namespace and Class Names
 
 Namespaces and classes **MUST** follow an [PSR-4](https://www.php-fig.org/psr/psr-4/) autoloading standard.
