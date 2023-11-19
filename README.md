@@ -148,6 +148,20 @@ Import statements **MUST** be fully qualified.
 
 Declare statements **MUST** be exactly ```declare(strict_types=1);```.
 
+## 4. Classes, Properties, and Methods
+
+The term "class" refers to all classes, interfaces, traits, and enums.
+
+When instantiating a new class, parentheses MUST always be present even when there are no arguments passed to the constructor. For example:
+```
+new Foo();
+```
+
+If class contains no additional declarations (such as an exception that exists only to extend another exception with a new type), then the body of the class **SHOULD** be abbreviated as ```{}``` and placed on the same line as the previous symbol, separated by a space. For example:
+```
+class MyException extends \RuntimeException {}
+```
+
 ---
 
 ## 3. Namespace and Class Names
