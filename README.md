@@ -162,6 +162,25 @@ If class contains no additional declarations (such as an exception that exists o
 class MyException extends \RuntimeException {}
 ```
 
+### 4.1 Extends and Implements
+
+The ```extends``` and ```implements``` keywords **MUST** be declared on the same line as the class name.
+
+The opening brace for the class **MUST** go on its own line, and **MUST NOT** be preceded or followed by a blank line.
+
+The closing brace for the class **MUST** go on its own line, immediately following the last line of the class body, and **MUST NOT** be preceded by a blank line.
+
+Lists of ```implements``` and, in the case of interfaces, ```extends``` **MAY** be split across multiple lines, where each subsequent line is indented once. When doing so, the first item in the list **MUST** be on the next line, and there **MUST** be only one interface per line. For example:
+```
+class ClassName extends ParentClass implements
+    \ArrayAccess,
+    \Countable,
+    \Serializable
+{
+    // constants, properties, methods
+}
+```
+
 ---
 
 ## 3. Namespace and Class Names
