@@ -181,6 +181,58 @@ class ClassName extends ParentClass implements
 }
 ```
 
+### 4.2 Using traits
+
+The ```use``` keyword used inside the classes to implement traits **MUST** be declared on the next line after the opening brace.
+
+Each individual trait that is imported into a class **MUST** be included one-per-line and each inclusion **MUST** have its own ```use``` import statement.
+
+When the class has nothing after the ```use``` import statement, the class closing brace **MUST** be on the next line after the ```use``` import statement. Otherwise, it **MUST** have a blank line after the ```use``` import statement.
+
+When using the ```insteadof``` and ```as``` operators they **MUST** be used as follows taking note of indentation, spacing, and new lines.
+```
+class Talker
+{
+    use A;
+    use B {
+        A::smallTalk insteadof B;
+    }
+    use C {
+        B::bigTalk insteadof C;
+        C::mediumTalk as FooBar;
+    }
+}
+```
+
+### 4.3 Properties and Constants
+
+Visibility and type **MUST** be declared on all properties and constants.
+
+### 4.4 Methods and Functions
+
+Visibility **MUST** be declared on all methods.
+
+Method and function names **MUST** be declared with one space after the method name. The opening brace **MUST** go on its own line, and the closing brace **MUST** go on the next line following the body. There **MUST NOT** be a space after the opening parenthesis, and there **MUST NOT** be a space before the closing parenthesis.
+
+If a function or method contains no statements or comments (such as an empty no-op implementation or when using constructor property promotion), then the body **SHOULD** be abbreviated as ```{}``` and placed on the same line as the previous symbol, separated by a space. For example:
+```
+class Point
+{
+    public function __construct (private int $x, private int $y) {}
+}
+```
+```
+class Point
+{
+    public function __construct(
+      public readonly int $x,
+      public readonly int $y,
+    ) {}
+}
+```
+
+
+
 ---
 
 ## 3. Namespace and Class Names
