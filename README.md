@@ -329,6 +329,119 @@ The general style rules for control structures are as follows:
 
 The body of each structure **MUST** be enclosed by braces. This standardizes how the structures look and reduces the likelihood of introducing errors as new lines get added to the body.
 
+### 5.1 ```if```, ```elseif```, ```else```
+
+An ```if``` structure looks like the following. Note the placement of parentheses, spaces, and braces; and that ```else``` and ```elseif``` are on the next line of the closing brace from the earlier body.
+```
+if ($expr1) {
+    // if body
+}
+else if ($expr2) {
+    // elseif body
+}
+else {
+    // else body;
+}
+```
+
+The keyword ```else if``` **SHOULD** be used instead of ```elseif```.
+
+### 5.2 ```switch```, ```case```, ```match```
+
+A ```switch``` structure looks like the following. Note the placement of parentheses, spaces, and braces. The ```case``` statement **MUST** be indented once from ```switch```, and the ```break``` keyword (or other terminating keywords) **MUST** be indented at the same level as the ```case``` keyword. There **MUST** be a comment such as ```// no break``` when fall-through is intentional in a non-empty case body.
+```
+switch ($expr) {
+    case 0:
+        echo 'First case, with a break';
+    break;
+    case 1:
+        echo 'Second case, which falls through';
+        // no break
+    case 2:
+    case 3:
+    case 4:
+        echo 'Third case, return instead of break';
+    return;
+    default:
+        echo 'Default case';
+    break;
+}
+```
+
+Similarly, a ```match``` expression looks like the following. Note the placement of parentheses, spaces, and braces.
+```
+$returnValue = match ($expr) {
+    0 => 'First case',
+    1, 2, 3 => multipleCases(),
+    default => 'Default case',
+};
+```
+
+### 5.3 ```while```, ```dowhile```
+
+A ```while``` statement looks like the following. Note the placement of parentheses, spaces, and braces.
+```
+while ($expr)
+{
+    // structure body
+}
+```
+
+Similarly, a ```do while``` statement looks like the following. Note the placement of parentheses, spaces, and braces.
+```
+do {
+    // structure body;
+} while ($expr);
+```
+
+### 5.4 ```for```
+
+A ```for``` statement looks like the following. Note the placement of parentheses, spaces, and braces.
+```
+for ($i = 0; $i < 10; $i++)
+{
+    // for body
+}
+```
+
+### 5.5 ```foreach```
+
+A ```foreach``` statement looks like the following. Note the placement of parentheses, spaces, and braces.
+```
+foreach ($iterable as $value)
+{
+    // foreach body
+}
+```
+```
+foreach ($iterable as $key => $value)
+{
+    // foreach body
+}
+```
+
+### 5.6 ```try```, ```catch```, ```finally```
+
+A ```try-catch-finally``` block looks like the following. Note the placement of parentheses, spaces, and braces.
+```
+try
+{
+    // try body
+}
+catch (FirstThrowableType $e)
+{
+    // catch body
+}
+catch (OtherThrowableType | AnotherThrowableType $e)
+{
+    // catch body
+}
+finally
+{
+    // finally body
+}
+```
+
 ---
 
 ## 3. Namespace and Class Names
