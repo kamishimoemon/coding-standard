@@ -535,6 +535,33 @@ $func = fn(int $x, int $y): int => $x + $y;
 $result = $collection->reduce(fn(int $x, int $y): int => $x + $y, 0);
 ```
 
+## 8. Anonymous Classes
+
+Anonymous Classes **MUST** follow the same guidelines and principles as closures in the above section.
+
+```
+$instance = new class {};
+```
+
+The opening brace **MAY** be on the same line as the ```class``` keyword.
+
+If the anonymous class has no arguments, the ```()``` after ```class``` **MUST** be omitted.
+
+```
+// No arguments
+$instance = new class extends \Foo implements \HandleableInterface {
+    // Class content
+};
+
+// Constructor arguments
+$instance = new class($a) extends \Foo implements \ArrayAccess {
+    public function __construct (public int $a)
+    {
+    }
+    // Class content
+};
+```
+
 ---
 
 ## 3. Namespace and Class Names
