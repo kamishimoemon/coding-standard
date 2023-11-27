@@ -483,6 +483,58 @@ When the middle operand of the conditional operator is omitted, the operator **M
 $variable = $foo ?: 'bar';
 ```
 
+## 7. Closures
+
+Closures, also known as anonymous functions, **MUST** be declared with a space after the ```function``` keyword, and a space before and after the ```use``` keyword.
+
+The opening brace **MUST** go on the same line, and the closing brace **MUST** go on the next line following the body.
+
+There **MUST NOT** be a space after the opening parenthesis of the argument list or variable list, and there **MUST NOT** be a space before the closing parenthesis of the argument list or variable list.
+
+In the argument list and variable list, there **MUST NOT** be a space before each comma, and there **MUST** be one space after each comma.
+
+If a return type is present, it **MUST** follow the same rules as with normal functions and methods; if the ```use``` keyword is present, the colon **MUST** follow the ```use``` list closing parentheses with no spaces between the two characters.
+
+```
+$closureWithArgs = function ($arg1, $arg2) {
+    // body
+};
+
+$closureWithArgsAndVars = function ($arg1, $arg2) use ($var1, $var2) {
+    // body
+};
+
+$closureWithArgsVarsAndReturn = function ($arg1, $arg2) use ($var1, $var2): bool {
+    // body
+};
+```
+
+Note that the formatting rules also apply when the closure is used directly in a function or method call as an argument.
+```
+$foo->bar(
+    $arg1,
+    function ($arg2) use ($var1) {
+        // body
+    },
+    $arg3,
+);
+```
+
+### 7.1 Short Closures
+
+Short closures, also known as arrow functions, **MUST** follow the same guidelines and principles as long closures above, with the following additions.
+
+The ```fn``` keyword **MUST NOT** be succeeded by a space.
+
+The ```=>``` symbol **MUST** be preceded and succeeded by a space.
+
+The semicolon at the end of the expression **MUST NOT** be preceded by a space.
+
+```
+$func = fn(int $x, int $y): int => $x + $y;
+$result = $collection->reduce(fn(int $x, int $y): int => $x + $y, 0);
+```
+
 ---
 
 ## 3. Namespace and Class Names
