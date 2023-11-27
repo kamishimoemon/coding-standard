@@ -442,6 +442,47 @@ finally
 }
 ```
 
+## 6. Operators
+
+### 6.1 Unary operators
+
+The increment/decrement operators **MUST NOT** have any space between the operator and operand:
+```
+$i++;
+++$j;
+```
+
+Type casting operators **MUST NOT** have any space within the parentheses and **MUST NOT** be separated from the variable they are operating on:
+```
+$intValue = (int)$input;
+```
+
+### 6.2 Binary operators
+
+All binary [arithmetic](http://php.net/manual/en/language.operators.arithmetic.php), [comparison](http://php.net/manual/en/language.operators.comparison.php), [assignment](http://php.net/manual/en/language.operators.assignment.php), [bitwise](http://php.net/manual/en/language.operators.bitwise.php), [logical](http://php.net/manual/en/language.operators.logical.php), [string](http://php.net/manual/en/language.operators.string.php), and [type](http://php.net/manual/en/language.operators.type.php) operators **MUST** be preceded and followed by one space:
+```
+if ($a === $b)
+{
+    $foo = $bar ?? $a ?? $b;
+}
+elseif ($a > $b)
+{
+    $foo = $a + $b * $c;
+}
+```
+
+### 6.3 Ternary operators
+
+The conditional operator, also known simply as the ternary operator, **MUST** be preceded and followed by one space around both the ```?``` and ```:``` characters:
+```
+$variable = $foo ? 'foo' : 'bar';
+```
+
+When the middle operand of the conditional operator is omitted, the operator **MUST** follow the same style rules as other binary comparison operators:
+```
+$variable = $foo ?: 'bar';
+```
+
 ---
 
 ## 3. Namespace and Class Names
