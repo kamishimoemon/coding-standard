@@ -562,6 +562,28 @@ $instance = new class($a) extends \Foo implements \ArrayAccess {
 };
 ```
 
+## 9. Enumerations
+
+Enumerations (enums) **MUST** follow the same guidelines as classes, except where otherwise noted below.
+
+Methods in enums **MUST** follow the same guidelines as methods in classes. Non-public methods MUST use ```private``` instead of ```protected```, as enums do not support inheritance.
+
+When using a backed enum, there **MUST NOT** be a space between the enum name and colon, and there **MUST** be exactly one space between the colon and the backing type. This is consistent with the style for return types.
+
+Constants in Enumerations **MUST** use UPPER_CASE capitalization.
+
+```
+enum Suit: string
+{
+    case HEARTS = 'H';
+    case DIAMONDS = 'D';
+    case SPADES = 'S';
+    case CLUBS = 'C';
+
+    const WILD = self::SPADES;
+}
+```
+
 ---
 
 ## 3. Namespace and Class Names
