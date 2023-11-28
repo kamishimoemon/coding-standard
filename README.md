@@ -621,6 +621,36 @@ var_dump(
 );
 ```
 
+## 11. Arrays
+
+Arrays **MUST** be declared using the short array syntax.
+
+```
+$arr = [];
+```
+
+Arrays **MUST** follow the trailing comma guidelines.
+
+Array declarations **MAY** be split across multiple lines, where each subsequent line is indented once. When doing so, the first value in the array **MUST** be on the next line, and there **MUST** be only one value per line.
+
+When the array declaration is split across multiple lines, the opening bracket **MUST** be placed on the same line as the equals sign. The closing bracket **MUST** be placed on the next line after the last value. There **MUST NOT** be more than one value assignment per line. Value assignments **MAY** use a single line or multiple lines.
+
+```
+$arr1 = ['single', 'line', 'declaration'];
+```
+```
+$arr2 = [
+    'multi',
+    'line',
+    'declaration',
+    ['values' => 1, 5, 7],
+    [
+        'nested',
+        'array',
+    ],
+];
+```
+
 ---
 
 ## 3. Namespace and Class Names
