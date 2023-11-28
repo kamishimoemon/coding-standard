@@ -584,6 +584,43 @@ enum Suit: string
 }
 ```
 
+## 10. Heredoc and Nowdoc
+
+A nowdoc **SHOULD** be used wherever possible. Heredoc **MAY** be used when a nowdoc does not satisfy requirements.
+
+Declared heredocs or nowdocs **MUST** begin on the same line as the context the declaration is being used in. Subsequent lines in the heredoc or nowdoc **MUST** be at the same indentation then the scope they are declared in.
+
+```
+$allowedHeredoc = <<<COMPLIANT
+This
+is
+a
+compliant
+heredoc
+COMPLIANT;
+```
+```
+$allowedNowdoc = <<<'COMPLIANT'
+This
+is
+a
+compliant
+nowdoc
+COMPLIANT;
+
+var_dump(
+    'foo',
+    <<<'COMPLIANT'
+    This
+    is
+    a
+    compliant
+    parameter
+    COMPLIANT,
+    'bar',
+);
+```
+
 ---
 
 ## 3. Namespace and Class Names
