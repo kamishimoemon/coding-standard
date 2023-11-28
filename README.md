@@ -651,6 +651,88 @@ $arr2 = [
 ];
 ```
 
+## 12. Attributes
+
+### 12.1 Basics
+
+Attribute names **MUST** immediately follow the opening attribute block indicator ```#[``` with no space.
+
+If an attribute has no arguments, ```()``` **MUST** be omitted.
+
+The closing attribute block indicator ```]``` **MUST** follow the last character of the attribute name or the closing ```)``` of its argument list, with no preceding space.
+
+The construct ```#[...]``` is referred to as an "attribute block" in this document.
+
+### 12.2 Placement
+
+Attributes on classes, constants, properties, methods and functions **MUST** be placed on their own line, immediately prior to the structure being described.
+
+For attributes on parameters, if the parameter list is presented on a single line, the attribute **MUST** be placed inline with the parameter it describes, separated by a single space. If the parameter list is split into multiple lines, the attribute **MUST be placed** on its own line prior to the parameter, indented the same as the parameter. If the parameter list is split into multiple lines, a blank line **MAY** be included between one parameter and the attributes of the following parameter in order to aid readability.
+
+If a comment docblock is present on a structure that also includes an attribute, the comment block **MUST** come first, followed by any attributes, followed by the structure itself. There **MUST NOT** be any blank lines between the docblock and attributes, or the attributes and the structure.
+
+If two separate attribute blocks are used in a multi-line context, they **MUST** be on separate lines with no blank lines between them.
+
+### 12.3 Compound attributes
+
+If multiple attributes are placed in the same attribute block, they **MUST** be separated by a comma with a space following but no space preceding. If the attribute list is split into multiple lines, then the attributes **MUST** be placed in separate attribute blocks. Those blocks may themselves contain multiple attributes provided this rule is respected.
+
+If an attribute's argument list is split into multiple lines, then:
+- The attribute **MUST** be the only one in its attribute block.
+- The attribute arguments **MUST** follow the same rules as defined for multiline function calls.
+
+### 12.4 Examples
+
+```
+#[Foo]
+#[Bar('baz')]
+class Demo
+{
+    #[Beep]
+    private Foo $foo;
+
+    public function __construct (
+        #[Load(context: 'foo', bar: true)]
+        private readonly FooService $fooService,
+
+        #[LoadProxy(context: 'bar')]
+        private readonly BarService $barService,
+    ) {}
+
+    /**
+     * Sets the foo.
+     */
+    #[Poink('narf'), Narf('poink')]
+    public function setFoo (#[Beep] Foo $new): void
+    {
+        // ...
+    }
+
+    #[Complex(
+        prop: 'val',
+        other: 5,
+    )]
+    #[Other, Stuff]
+    #[Here]
+    public function complicated (
+        string $a,
+
+        #[Decl]
+        string $b,
+
+        #[Complex(
+            prop: 'val',
+            other: 5,
+        )]
+        string $c,
+
+        int $d,
+    ): string {
+        // ...
+    }
+}
+```
+
 ---
 
 ## 3. Namespace and Class Names
