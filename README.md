@@ -362,7 +362,7 @@ finally
 }
 ```
 
-### 7. Functions
+## 7. Functions
 
 Function names **MUST** be declared in ```camelCase```.
 
