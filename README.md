@@ -127,6 +127,312 @@ A file **SHOULD** declare new symbols (classes, functions, constants, etc.) and 
 
 "Side effects" include but are not limited to: generating output, explicit use of ```require``` or ```include```, connecting to external services, modifying ini settings, emitting errors or exceptions, modifying global or static variables, reading from or writing to a file, and so on.
 
+## 3. Heredoc and Nowdoc
+
+A nowdoc **SHOULD** be used wherever possible. Heredoc **MAY** be used when a nowdoc does not satisfy requirements.
+
+Declared heredocs or nowdocs **MUST** begin on the same line as the context the declaration is being used in. Subsequent lines in the heredoc or nowdoc **MUST** be at the same indentation than the scope they are declared in.
+
+```
+$allowedHeredoc = <<<COMPLIANT
+This
+is
+a
+compliant
+heredoc
+COMPLIANT;
+```
+```
+$allowedNowdoc = <<<'COMPLIANT'
+This
+is
+a
+compliant
+nowdoc
+COMPLIANT;
+
+var_dump(
+    'foo',
+    <<<'COMPLIANT'
+    This
+    is
+    a
+    compliant
+    parameter
+    COMPLIANT,
+    'bar',
+);
+```
+
+## 4. Arrays
+
+Arrays **MUST** be declared using the short array syntax.
+
+```
+$arr = [];
+```
+
+Arrays **MUST** follow the trailing comma guidelines.
+
+Array declarations **MAY** be split across multiple lines, where each subsequent line is indented once. When doing so, the first value in the array **MUST** be on the next line, and there **MUST** be only one value per line.
+
+When the array declaration is split across multiple lines, the opening bracket **MUST** be placed on the same line as the equals sign. The closing bracket **MUST** be placed on the next line after the last value. There **MUST NOT** be more than one value assignment per line. Value assignments **MAY** use a single line or multiple lines.
+
+```
+$arr1 = ['single', 'line', 'declaration'];
+```
+```
+$arr2 = [
+    'multi',
+    'line',
+    'declaration',
+    ['values' => 1, 5, 7],
+    [
+        'nested',
+        'array',
+    ],
+];
+```
+
+## 5. Operators
+
+### 5.1 Unary operators
+
+The increment/decrement operators **MUST NOT** have any space between the operator and operand:
+```
+$i++;
+++$j;
+```
+
+Type casting operators **MUST NOT** have any space within the parentheses and **MUST NOT** be separated from the variable they are operating on:
+```
+$intValue = (int)$input;
+```
+
+### 5.2 Binary operators
+
+All binary [arithmetic](http://php.net/manual/en/language.operators.arithmetic.php), [comparison](http://php.net/manual/en/language.operators.comparison.php), [assignment](http://php.net/manual/en/language.operators.assignment.php), [bitwise](http://php.net/manual/en/language.operators.bitwise.php), [logical](http://php.net/manual/en/language.operators.logical.php), [string](http://php.net/manual/en/language.operators.string.php), and [type](http://php.net/manual/en/language.operators.type.php) operators **MUST** be preceded and followed by one space:
+```
+if ($a === $b)
+{
+    $foo = $bar ?? $a ?? $b;
+}
+elseif ($a > $b)
+{
+    $foo = $a + $b * $c;
+}
+```
+
+### 5.3 Ternary operators
+
+The conditional operator, also known simply as the ternary operator, **MUST** be preceded and followed by one space around both the ```?``` and ```:``` characters:
+```
+$variable = $foo ? 'foo' : 'bar';
+```
+
+When the middle operand of the conditional operator is omitted, the operator **MUST** follow the same style rules as other binary comparison operators:
+```
+$variable = $foo ?: 'bar';
+```
+
+## 6. Control Structures
+
+The general style rules for control structures are as follows:
+
+- There **MUST** be one space after the control structure keyword
+- There **MUST NOT** be a space after the opening parenthesis
+- There **MUST NOT** be a space before the closing parenthesis
+- There **MUST** be one space between the closing parenthesis and the opening brace
+- The structure body **MUST** be indented once
+- The body **MUST** be on the next line after the opening brace
+- The closing brace **MUST** be on the next line after the body
+
+The body of each structure **MUST** be enclosed by braces. This standardizes how the structures look and reduces the likelihood of introducing errors as new lines get added to the body.
+
+### 6.1 ```if```, ```elseif```, ```else```
+
+An ```if``` structure looks like the following. Note the placement of parentheses, spaces, and braces; and that ```else``` and ```elseif``` are on the next line of the closing brace from the earlier body.
+```
+if ($expr1) {
+    // if body
+}
+else if ($expr2) {
+    // elseif body
+}
+else {
+    // else body;
+}
+```
+
+The keyword ```else if``` **SHOULD** be used instead of ```elseif```.
+
+### 6.2 ```switch```, ```case```, ```match```
+
+A ```switch``` structure looks like the following. Note the placement of parentheses, spaces, and braces. The ```case``` statement **MUST** be indented once from ```switch```, and the ```break``` keyword (or other terminating keywords) **MUST** be indented at the same level as the ```case``` keyword. There **MUST** be a comment such as ```// no break``` when fall-through is intentional in a non-empty case body.
+```
+switch ($expr) {
+    case 0:
+        echo 'First case, with a break';
+    break;
+    case 1:
+        echo 'Second case, which falls through';
+        // no break
+    case 2:
+    case 3:
+    case 4:
+        echo 'Third case, return instead of break';
+    return;
+    default:
+        echo 'Default case';
+    break;
+}
+```
+
+Similarly, a ```match``` expression looks like the following. Note the placement of parentheses, spaces, and braces.
+```
+$returnValue = match ($expr) {
+    0 => 'First case',
+    1, 2, 3 => multipleCases(),
+    default => 'Default case',
+};
+```
+
+### 6.3 ```while```, ```dowhile```
+
+A ```while``` statement looks like the following. Note the placement of parentheses, spaces, and braces.
+```
+while ($expr)
+{
+    // structure body
+}
+```
+
+Similarly, a ```do while``` statement looks like the following. Note the placement of parentheses, spaces, and braces.
+```
+do {
+    // structure body;
+} while ($expr);
+```
+
+### 6.4 ```for```
+
+A ```for``` statement looks like the following. Note the placement of parentheses, spaces, and braces.
+```
+for ($i = 0; $i < 10; $i++)
+{
+    // for body
+}
+```
+
+### 6.5 ```foreach```
+
+A ```foreach``` statement looks like the following. Note the placement of parentheses, spaces, and braces.
+```
+foreach ($iterable as $value)
+{
+    // foreach body
+}
+```
+```
+foreach ($iterable as $key => $value)
+{
+    // foreach body
+}
+```
+
+### 6.6 ```try```, ```catch```, ```finally```
+
+A ```try-catch-finally``` block looks like the following. Note the placement of parentheses, spaces, and braces.
+```
+try
+{
+    // try body
+}
+catch (FirstThrowableType $e)
+{
+    // catch body
+}
+catch (OtherThrowableType | AnotherThrowableType $e)
+{
+    // catch body
+}
+finally
+{
+    // finally body
+}
+```
+
+### 7. Functions
+
+Function names **MUST** be declared in ```camelCase```.
+
+Function names **MUST** be declared with one space after the method name. The opening brace **MUST** go on its own line, and the closing brace **MUST** go on the next line following the body. There **MUST NOT** be a space after the opening parenthesis, and there **MUST NOT** be a space before the closing parenthesis.
+
+If a function contains no statements or comments (such as an empty no-op implementation), then the body **SHOULD** be abbreviated as ```{}``` and placed on the same line as the previous symbol, separated by a space. For example:
+```
+function doNothing (int $x, int $y) {}
+```
+```
+function doNothingInMultipleLines (
+  int $x,
+  int $y,
+) {}
+```
+
+### 7.1 Function Parameters
+
+In the argument list, there **MUST NOT** be a space before each comma, and there **MUST** be one space after each comma.
+
+Argument lists **MAY** be split across multiple lines, where each subsequent line is indented once. When doing so, the first item in the list **MUST** be on the next line, and there **MUST** be only one argument per line. When the argument list is split across multiple lines, the closing parenthesis and opening brace **MUST** be placed together on their own line with one space between them. For example:
+```
+function aVeryLongMethodName (
+    ClassTypeHint $arg1,
+    &$arg2,
+    array $arg3 = [],
+) {
+    // method body
+}
+```
+
+When you have a return type declaration present, there **MUST** be one space after the colon followed by the type declaration. The colon and declaration **MUST** be on the same line as the argument list closing parenthesis with no spaces between the two characters.
+```
+function functionName (int $arg1, $arg2): string
+{
+    return 'foo';
+}
+```
+```
+function anotherFunction(
+    string $foo,
+    string $bar,
+    int $baz,
+): string {
+    return 'foo';
+}
+```
+
+In nullable type declarations, there **MUST NOT** be a space between the question mark and the type.
+```
+function functionName (?string $arg1, ?int &$arg2): ?string
+{
+    return 'foo';
+}
+```
+
+When using the reference operator ```&``` before an argument, there **MUST NOT** be a space after it.
+
+There **MUST NOT** be a space between the variadic three dot operator and the argument name.
+
+When combining both the reference operator and the variadic three dot operator, there **MUST NOT** be any space between the two of them.
+
+### 4.7 Function Calls
+
+When making a function call, there **MUST NOT** be a space between the function name and the opening parenthesis, there **MUST NOT** be a space after the opening parenthesis, and there **MUST NOT** be a space before the closing parenthesis. In the argument list, there **MUST NOT** be a space before each comma, and there **MUST** be one space after each comma.
+
+```
+someFunction($a, $b, $c);
+```
+
 ## 3. Declare Statements, Namespace, and Import Statements
 
 The header of a PHP file **MAY** consist of a number of different blocks. If present, each of the blocks below **MUST** be separated by a single blank line, and **MUST NOT** contain a blank line. Each block **MUST** be in the order listed below, although blocks that are not relevant may be omitted.
@@ -319,174 +625,6 @@ $someInstance
 ;
 ```
 
-## 5. Control Structures
-
-The general style rules for control structures are as follows:
-
-- There **MUST** be one space after the control structure keyword
-- There **MUST NOT** be a space after the opening parenthesis
-- There **MUST NOT** be a space before the closing parenthesis
-- There **MUST** be one space between the closing parenthesis and the opening brace
-- The structure body **MUST** be indented once
-- The body **MUST** be on the next line after the opening brace
-- The closing brace **MUST** be on the next line after the body
-
-The body of each structure **MUST** be enclosed by braces. This standardizes how the structures look and reduces the likelihood of introducing errors as new lines get added to the body.
-
-### 5.1 ```if```, ```elseif```, ```else```
-
-An ```if``` structure looks like the following. Note the placement of parentheses, spaces, and braces; and that ```else``` and ```elseif``` are on the next line of the closing brace from the earlier body.
-```
-if ($expr1) {
-    // if body
-}
-else if ($expr2) {
-    // elseif body
-}
-else {
-    // else body;
-}
-```
-
-The keyword ```else if``` **SHOULD** be used instead of ```elseif```.
-
-### 5.2 ```switch```, ```case```, ```match```
-
-A ```switch``` structure looks like the following. Note the placement of parentheses, spaces, and braces. The ```case``` statement **MUST** be indented once from ```switch```, and the ```break``` keyword (or other terminating keywords) **MUST** be indented at the same level as the ```case``` keyword. There **MUST** be a comment such as ```// no break``` when fall-through is intentional in a non-empty case body.
-```
-switch ($expr) {
-    case 0:
-        echo 'First case, with a break';
-    break;
-    case 1:
-        echo 'Second case, which falls through';
-        // no break
-    case 2:
-    case 3:
-    case 4:
-        echo 'Third case, return instead of break';
-    return;
-    default:
-        echo 'Default case';
-    break;
-}
-```
-
-Similarly, a ```match``` expression looks like the following. Note the placement of parentheses, spaces, and braces.
-```
-$returnValue = match ($expr) {
-    0 => 'First case',
-    1, 2, 3 => multipleCases(),
-    default => 'Default case',
-};
-```
-
-### 5.3 ```while```, ```dowhile```
-
-A ```while``` statement looks like the following. Note the placement of parentheses, spaces, and braces.
-```
-while ($expr)
-{
-    // structure body
-}
-```
-
-Similarly, a ```do while``` statement looks like the following. Note the placement of parentheses, spaces, and braces.
-```
-do {
-    // structure body;
-} while ($expr);
-```
-
-### 5.4 ```for```
-
-A ```for``` statement looks like the following. Note the placement of parentheses, spaces, and braces.
-```
-for ($i = 0; $i < 10; $i++)
-{
-    // for body
-}
-```
-
-### 5.5 ```foreach```
-
-A ```foreach``` statement looks like the following. Note the placement of parentheses, spaces, and braces.
-```
-foreach ($iterable as $value)
-{
-    // foreach body
-}
-```
-```
-foreach ($iterable as $key => $value)
-{
-    // foreach body
-}
-```
-
-### 5.6 ```try```, ```catch```, ```finally```
-
-A ```try-catch-finally``` block looks like the following. Note the placement of parentheses, spaces, and braces.
-```
-try
-{
-    // try body
-}
-catch (FirstThrowableType $e)
-{
-    // catch body
-}
-catch (OtherThrowableType | AnotherThrowableType $e)
-{
-    // catch body
-}
-finally
-{
-    // finally body
-}
-```
-
-## 6. Operators
-
-### 6.1 Unary operators
-
-The increment/decrement operators **MUST NOT** have any space between the operator and operand:
-```
-$i++;
-++$j;
-```
-
-Type casting operators **MUST NOT** have any space within the parentheses and **MUST NOT** be separated from the variable they are operating on:
-```
-$intValue = (int)$input;
-```
-
-### 6.2 Binary operators
-
-All binary [arithmetic](http://php.net/manual/en/language.operators.arithmetic.php), [comparison](http://php.net/manual/en/language.operators.comparison.php), [assignment](http://php.net/manual/en/language.operators.assignment.php), [bitwise](http://php.net/manual/en/language.operators.bitwise.php), [logical](http://php.net/manual/en/language.operators.logical.php), [string](http://php.net/manual/en/language.operators.string.php), and [type](http://php.net/manual/en/language.operators.type.php) operators **MUST** be preceded and followed by one space:
-```
-if ($a === $b)
-{
-    $foo = $bar ?? $a ?? $b;
-}
-elseif ($a > $b)
-{
-    $foo = $a + $b * $c;
-}
-```
-
-### 6.3 Ternary operators
-
-The conditional operator, also known simply as the ternary operator, **MUST** be preceded and followed by one space around both the ```?``` and ```:``` characters:
-```
-$variable = $foo ? 'foo' : 'bar';
-```
-
-When the middle operand of the conditional operator is omitted, the operator **MUST** follow the same style rules as other binary comparison operators:
-```
-$variable = $foo ?: 'bar';
-```
-
 ## 7. Closures
 
 Closures, also known as anonymous functions, **MUST** be declared with a space after the ```function``` keyword, and a space before and after the ```use``` keyword.
@@ -586,73 +724,6 @@ enum Suit: string
 
     const WILD = self::SPADES;
 }
-```
-
-## 10. Heredoc and Nowdoc
-
-A nowdoc **SHOULD** be used wherever possible. Heredoc **MAY** be used when a nowdoc does not satisfy requirements.
-
-Declared heredocs or nowdocs **MUST** begin on the same line as the context the declaration is being used in. Subsequent lines in the heredoc or nowdoc **MUST** be at the same indentation then the scope they are declared in.
-
-```
-$allowedHeredoc = <<<COMPLIANT
-This
-is
-a
-compliant
-heredoc
-COMPLIANT;
-```
-```
-$allowedNowdoc = <<<'COMPLIANT'
-This
-is
-a
-compliant
-nowdoc
-COMPLIANT;
-
-var_dump(
-    'foo',
-    <<<'COMPLIANT'
-    This
-    is
-    a
-    compliant
-    parameter
-    COMPLIANT,
-    'bar',
-);
-```
-
-## 11. Arrays
-
-Arrays **MUST** be declared using the short array syntax.
-
-```
-$arr = [];
-```
-
-Arrays **MUST** follow the trailing comma guidelines.
-
-Array declarations **MAY** be split across multiple lines, where each subsequent line is indented once. When doing so, the first value in the array **MUST** be on the next line, and there **MUST** be only one value per line.
-
-When the array declaration is split across multiple lines, the opening bracket **MUST** be placed on the same line as the equals sign. The closing bracket **MUST** be placed on the next line after the last value. There **MUST NOT** be more than one value assignment per line. Value assignments **MAY** use a single line or multiple lines.
-
-```
-$arr1 = ['single', 'line', 'declaration'];
-```
-```
-$arr2 = [
-    'multi',
-    'line',
-    'declaration',
-    ['values' => 1, 5, 7],
-    [
-        'nested',
-        'array',
-    ],
-];
 ```
 
 ## 12. Attributes
