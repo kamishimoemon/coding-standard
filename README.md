@@ -425,7 +425,7 @@ There **MUST NOT** be a space between the variadic three dot operator and the ar
 
 When combining both the reference operator and the variadic three dot operator, there **MUST NOT** be any space between the two of them.
 
-### 4.7 Function Calls
+### 7.2 Function Calls
 
 When making a function call, there **MUST NOT** be a space between the function name and the opening parenthesis, there **MUST NOT** be a space after the opening parenthesis, and there **MUST NOT** be a space before the closing parenthesis. In the argument list, there **MUST NOT** be a space before each comma, and there **MUST** be one space after each comma.
 
@@ -433,32 +433,63 @@ When making a function call, there **MUST NOT** be a space between the function 
 someFunction($a, $b, $c);
 ```
 
-## 3. Declare Statements, Namespace, and Import Statements
+## 8. Closures
 
-The header of a PHP file **MAY** consist of a number of different blocks. If present, each of the blocks below **MUST** be separated by a single blank line, and **MUST NOT** contain a blank line. Each block **MUST** be in the order listed below, although blocks that are not relevant may be omitted.
+Closures, also known as anonymous functions, **MUST** be declared with a space after the ```function``` keyword, and a space before and after the ```use``` keyword.
 
-- Opening ```<?php``` tag.
-- File-level docblock.
-- One or more declare statements.
-- The namespace declaration of the file.
-- One or more class-based ```use``` import statements.
-- One or more function-based ```use``` import statements.
-- One or more constant-based ```use``` import statements.
-- The remainder of the code in the file.
+The opening brace **MUST** go on the same line, and the closing brace **MUST** go on the next line following the body.
 
-When a file contains a mix of HTML and PHP, any of the above sections may still be used. If so, they **MUST** be present at the top of the file, even if the remainder of the code consists of a closing PHP tag and then a mixture of HTML and PHP.
+There **MUST NOT** be a space after the opening parenthesis of the argument list or variable list, and there **MUST NOT** be a space before the closing parenthesis of the argument list or variable list.
 
-When the opening ```<?php``` tag is on the first line of the file, it **MUST** be on its own line with no other statements unless it is a file containing markup outside of PHP opening and closing tags.
+In the argument list and variable list, there **MUST NOT** be a space before each comma, and there **MUST** be one space after each comma.
 
-Import statements **MUST** be fully qualified.
+If a return type is present, it **MUST** follow the same rules as with normal functions and methods; if the ```use``` keyword is present, the colon **MUST** follow the ```use``` list closing parentheses with no spaces between the two characters.
 
-Declare statements **MUST** be exactly ```declare(strict_types=1);```.
+```
+$closureWithArgs = function ($arg1, $arg2) {
+    // body
+};
 
-## 4. Classes, Properties, and Methods
+$closureWithArgsAndVars = function ($arg1, $arg2) use ($var1, $var2) {
+    // body
+};
+
+$closureWithArgsVarsAndReturn = function ($arg1, $arg2) use ($var1, $var2): bool {
+    // body
+};
+```
+
+Note that the formatting rules also apply when the closure is used directly in a function or method call as an argument.
+```
+$foo->bar(
+    $arg1,
+    function ($arg2) use ($var1) {
+        // body
+    },
+    $arg3,
+);
+```
+
+### 8.1 Short Closures
+
+Short closures, also known as arrow functions, **MUST** follow the same guidelines and principles as long closures above, with the following additions.
+
+The ```fn``` keyword **MUST NOT** be succeeded by a space.
+
+The ```=>``` symbol **MUST** be preceded and succeeded by a space.
+
+The semicolon at the end of the expression **MUST NOT** be preceded by a space.
+
+```
+$func = fn(int $x, int $y): int => $x + $y;
+$result = $collection->reduce(fn(int $x, int $y): int => $x + $y, 0);
+```
+
+## 9. Classes
 
 The term "class" refers to all classes, interfaces, traits, and enums.
 
-When instantiating a new class, parentheses MUST always be present even when there are no arguments passed to the constructor. For example:
+When instantiating a new class, parentheses **MUST** always be present even when there are no arguments passed to the constructor. For example:
 ```
 new Foo();
 ```
@@ -468,7 +499,7 @@ If class contains no additional declarations (such as an exception that exists o
 class MyException extends \RuntimeException {}
 ```
 
-### 4.1 Extends and Implements
+### 9.1 Extends and Implements
 
 The ```extends``` and ```implements``` keywords **MUST** be declared on the same line as the class name.
 
@@ -487,7 +518,7 @@ class ClassName extends ParentClass implements
 }
 ```
 
-### 4.2 Using traits
+### 9.2 Using traits
 
 The ```use``` keyword used inside the classes to implement traits **MUST** be declared on the next line after the opening brace.
 
@@ -510,21 +541,21 @@ class Talker
 }
 ```
 
-### 4.3 Properties and Constants
+### 9.3 Properties and Constants
 
 Visibility and type **MUST** be declared on all properties and constants.
 
 Class constants **MUST** be declared in all upper case with underscore separators.
 
-### 4.4 Methods and Functions
+### 9.4 Methods
 
 Method names **MUST** be declared in ```camelCase```.
 
 Visibility **MUST** be declared on all methods.
 
-Method and function names **MUST** be declared with one space after the method name. The opening brace **MUST** go on its own line, and the closing brace **MUST** go on the next line following the body. There **MUST NOT** be a space after the opening parenthesis, and there **MUST NOT** be a space before the closing parenthesis.
+Method **MUST** be declared with one space after the method name. The opening brace **MUST** go on its own line, and the closing brace **MUST** go on the next line following the body. There **MUST NOT** be a space after the opening parenthesis, and there **MUST NOT** be a space before the closing parenthesis.
 
-If a function or method contains no statements or comments (such as an empty no-op implementation or when using constructor property promotion), then the body **SHOULD** be abbreviated as ```{}``` and placed on the same line as the previous symbol, separated by a space. For example:
+If a method contains no statements or comments (such as an empty no-op implementation or when using constructor property promotion), then the body **SHOULD** be abbreviated as ```{}``` and placed on the same line as the previous symbol, separated by a space. For example:
 ```
 class Point
 {
@@ -541,7 +572,7 @@ class Point
 }
 ```
 
-### 4.5 Method and Function Parameters
+### 9.5 Method Parameters
 
 In the argument list, there **MUST NOT** be a space before each comma, and there **MUST** be one space after each comma.
 
@@ -599,7 +630,7 @@ There **MUST NOT** be a space between the variadic three dot operator and the ar
 
 When combining both the reference operator and the variadic three dot operator, there **MUST NOT** be any space between the two of them.
 
-### 4.6 Modifier Keywords
+### 9.6 Modifier Keywords
 
 Classes, properties, and methods have numerous keyword modifiers that alter how the engine and language handles them. When present, they **MUST** be in the following order:
 
@@ -612,9 +643,9 @@ Classes, properties, and methods have numerous keyword modifiers that alter how 
 
 All keywords **MUST** be on a single line, and **MUST** be separated by a single space.
 
-### 4.7 Method and Function Calls
+### 9.7 Method Calls
 
-When making a method or function call, there **MUST NOT** be a space between the method or function name and the opening parenthesis, there **MUST NOT** be a space after the opening parenthesis, and there **MUST NOT** be a space before the closing parenthesis. In the argument list, there **MUST NOT** be a space before each comma, and there **MUST** be one space after each comma.
+When making a method, there **MUST NOT** be a space between the method or function name and the opening parenthesis, there **MUST NOT** be a space after the opening parenthesis, and there **MUST NOT** be a space before the closing parenthesis. In the argument list, there **MUST NOT** be a space before each comma, and there **MUST** be one space after each comma.
 
 Method chaining **MAY** be put on separate lines, where each subsequent line is indented once. When doing so, the first method **MUST** be on the next line. The final semicolon **MUST** be in a line of its own without indentation. For example:
 ```
@@ -625,59 +656,7 @@ $someInstance
 ;
 ```
 
-## 7. Closures
-
-Closures, also known as anonymous functions, **MUST** be declared with a space after the ```function``` keyword, and a space before and after the ```use``` keyword.
-
-The opening brace **MUST** go on the same line, and the closing brace **MUST** go on the next line following the body.
-
-There **MUST NOT** be a space after the opening parenthesis of the argument list or variable list, and there **MUST NOT** be a space before the closing parenthesis of the argument list or variable list.
-
-In the argument list and variable list, there **MUST NOT** be a space before each comma, and there **MUST** be one space after each comma.
-
-If a return type is present, it **MUST** follow the same rules as with normal functions and methods; if the ```use``` keyword is present, the colon **MUST** follow the ```use``` list closing parentheses with no spaces between the two characters.
-
-```
-$closureWithArgs = function ($arg1, $arg2) {
-    // body
-};
-
-$closureWithArgsAndVars = function ($arg1, $arg2) use ($var1, $var2) {
-    // body
-};
-
-$closureWithArgsVarsAndReturn = function ($arg1, $arg2) use ($var1, $var2): bool {
-    // body
-};
-```
-
-Note that the formatting rules also apply when the closure is used directly in a function or method call as an argument.
-```
-$foo->bar(
-    $arg1,
-    function ($arg2) use ($var1) {
-        // body
-    },
-    $arg3,
-);
-```
-
-### 7.1 Short Closures
-
-Short closures, also known as arrow functions, **MUST** follow the same guidelines and principles as long closures above, with the following additions.
-
-The ```fn``` keyword **MUST NOT** be succeeded by a space.
-
-The ```=>``` symbol **MUST** be preceded and succeeded by a space.
-
-The semicolon at the end of the expression **MUST NOT** be preceded by a space.
-
-```
-$func = fn(int $x, int $y): int => $x + $y;
-$result = $collection->reduce(fn(int $x, int $y): int => $x + $y, 0);
-```
-
-## 8. Anonymous Classes
+## 10. Anonymous Classes
 
 Anonymous Classes **MUST** follow the same guidelines and principles as closures in the above section.
 
@@ -704,7 +683,7 @@ $instance = new class($a) extends \Foo implements \ArrayAccess {
 };
 ```
 
-## 9. Enumerations
+## 11. Enumerations
 
 Enumerations (enums) **MUST** follow the same guidelines as classes, except where otherwise noted below.
 
@@ -726,9 +705,30 @@ enum Suit: string
 }
 ```
 
-## 12. Attributes
+## 12. Declare Statements, Namespace, and Import Statements
 
-### 12.1 Basics
+The header of a PHP file **MAY** consist of a number of different blocks. If present, each of the blocks below **MUST** be separated by a single blank line, and **MUST NOT** contain a blank line. Each block **MUST** be in the order listed below, although blocks that are not relevant may be omitted.
+
+- Opening ```<?php``` tag.
+- File-level docblock.
+- One or more declare statements.
+- The namespace declaration of the file.
+- One or more class-based ```use``` import statements.
+- One or more function-based ```use``` import statements.
+- One or more constant-based ```use``` import statements.
+- The remainder of the code in the file.
+
+When a file contains a mix of HTML and PHP, any of the above sections may still be used. If so, they **MUST** be present at the top of the file, even if the remainder of the code consists of a closing PHP tag and then a mixture of HTML and PHP.
+
+When the opening ```<?php``` tag is on the first line of the file, it **MUST** be on its own line with no other statements unless it is a file containing markup outside of PHP opening and closing tags.
+
+Import statements **MUST** be fully qualified.
+
+Declare statements **MUST** be exactly ```declare(strict_types=1);```.
+
+## 13. Attributes
+
+### 13.1 Basics
 
 Attribute names **MUST** immediately follow the opening attribute block indicator ```#[``` with no space.
 
@@ -738,7 +738,7 @@ The closing attribute block indicator ```]``` **MUST** follow the last character
 
 The construct ```#[...]``` is referred to as an "attribute block" in this document.
 
-### 12.2 Placement
+### 13.2 Placement
 
 Attributes on classes, constants, properties, methods and functions **MUST** be placed on their own line, immediately prior to the structure being described.
 
@@ -748,7 +748,7 @@ If a comment docblock is present on a structure that also includes an attribute,
 
 If two separate attribute blocks are used in a multi-line context, they **MUST** be on separate lines with no blank lines between them.
 
-### 12.3 Compound attributes
+### 13.3 Compound attributes
 
 If multiple attributes are placed in the same attribute block, they **MUST** be separated by a comma with a space following but no space preceding. If the attribute list is split into multiple lines, then the attributes **MUST** be placed in separate attribute blocks. Those blocks may themselves contain multiple attributes provided this rule is respected.
 
@@ -756,7 +756,7 @@ If an attribute's argument list is split into multiple lines, then:
 - The attribute **MUST** be the only one in its attribute block.
 - The attribute arguments **MUST** follow the same rules as defined for multiline function calls.
 
-### 12.4 Examples
+### 13.4 Examples
 
 ```
 #[Foo]
